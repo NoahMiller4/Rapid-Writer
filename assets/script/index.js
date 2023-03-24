@@ -30,7 +30,7 @@ const display = document.querySelector('.display');
 const scoreDisplay = document.querySelector('.score');
 const message = document.querySelector('.message')
 
-// add global variables
+// add global variables, initialize playing
 let seconds = 99;
 let score = 0;
 let playing;
@@ -48,19 +48,50 @@ const hideButton = addBtn.addEventListener('click', () => {
 
 const init = addBtn.addEventListener('click', initialize)
 
+// not onClick, keep seperate from initialize()
 setInterval (function () {
     if(startSound.currentTime > 99){
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
+        message.innerHTML = "0";
     }
 },1000);
 
 function initialize() {
     word(words);
+    input.addEventListener('input', start)
+    setInterval(countdown, 1000);
+    setInterval(checkGame, 50)
 
 }
 
+function start() {
+    if(sameWord()) {
+        playing = true;
+        word(words);
+        input.value = '';
+        score++;
+    }
+    if (score === 0) {
+        scoreDisplay.innerHTML = score;
+    } else {
+        scoreDisplay.innerHTML = score;
+    }
+    
+}
+
+function sameWord() {
+    if(input.value === display.innerHTML) {
+        message.innerHTML = 'Correct!'
+        return true
+    } else {
+        message.innerHTML = '';
+        return false
+    }
+}
+
+// radomize words from array and return
 function word(words) {
     const randomWord = Math.floor(Math.random() * words.length);
     display.innerHTML = words[randomWord]
@@ -68,10 +99,17 @@ function word(words) {
 
 function countdown() {
     // make sure time is not at 0
-    if(time > 0) {
-        time--;
-    }   else if(time === 0) {
+    if(seconds > 0) {
+        seconds--;
+    }   else if(seconds === 0) {
         playing = false;
     }
+    time.innerHTML = seconds;
+}
 
+function checkGame() {
+    if (!playing && seconds === 0) {
+        message.innerHTML = '';
+        score = 0
+    }
 }
