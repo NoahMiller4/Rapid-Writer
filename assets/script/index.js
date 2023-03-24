@@ -54,7 +54,7 @@ setInterval (function () {
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
-        message.innerHTML = "0";
+        message.innerHTML = 'score';
     }
 },1000);
 
