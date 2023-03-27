@@ -33,7 +33,7 @@ body {
     background: #2799c7 url("../image/cotton-candy.jpg") 
     center center / cover no-repeat;
     height: 100vh; 
-    overflow: hidden;
+    overflow: auto;
 }
 
 /* -----------------------------------*/
