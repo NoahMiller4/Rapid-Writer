@@ -28,7 +28,11 @@ const input = document.querySelector('.input');
 const time = document.querySelector('.time');
 const display = document.querySelector('.display');
 const scoreDisplay = document.querySelector('.score');
-const message = document.querySelector('.message')
+const message = document.querySelector('.message');
+const hideDisplay = document.querySelector('.hide');
+const descrip = document.querySelector('.descrip');
+const text = document.querySelector('.text');
+const box = document.querySelector('.box')
 
 // add global variables, initialize playing
 let seconds = 99;
@@ -54,15 +58,36 @@ setInterval (function () {
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
-        message.innerHTML = 'score';
+        score = 0
+        text.style.display = 'block';
+        descrip.style.display = 'block';
+        hideDisplay.style.display = 'none';
+        input.placeholder = "";
+        box.style.width = '100%';
+        box.style.backgroundColor = 'rgb(0 0 0 / 0)';
+        box.style.border = 'solid 1px rgb(0 0 0 / 0)';
+        box.style.borderRadius = '0';
     }
 },1000);
 
 function initialize() {
+    text.style.display = 'none';
+    descrip.style.display = 'none';
+    hideDisplay.style.display = 'inline-block';
+    hideDisplay.style.borderBottom = 'solid 2px rgb(0 0 0 / 0.5)';
+    hideDisplay.style.width = '400px';
+    input.placeholder = "Start typing...";
+    box.style.margin = 'auto';
+    box.style.marginTop = '60px';
+    box.style.width = '400px';
+    box.style.backgroundColor = 'rgb(255 255 255 / 0.2)';
+    box.style.border = 'solid 1px rgb(0 0 0 / 0.1)';
+    box.style.borderRadius = '10px';
+    input.focus()
     word(words);
-    input.addEventListener('input', start)
+    input.addEventListener('input', start);
     setInterval(countdown, 1000);
-    setInterval(checkGame, 50)
+    setInterval(checkGame, 50);
 
 }
 
@@ -110,6 +135,5 @@ function countdown() {
 function checkGame() {
     if (!playing && seconds === 0) {
         message.innerHTML = '';
-        score = 0
     }
 }
