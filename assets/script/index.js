@@ -35,7 +35,7 @@ const text = document.querySelector('.text');
 const box = document.querySelector('.box')
 
 // add global variables, initialize playing
-let seconds = 99;
+let seconds =  15;
 let score = 0;
 let playing;
 
@@ -54,7 +54,7 @@ const init = addBtn.addEventListener('click', initialize)
 
 // not onClick, keep seperate from initialize()
 setInterval (function () {
-    if(startSound.currentTime > 99){
+    if(startSound.currentTime > 15){
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
@@ -137,3 +137,4 @@ function checkGame() {
         message.innerHTML = '';
     }
 }
+

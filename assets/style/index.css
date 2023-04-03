@@ -34,6 +34,7 @@ body {
     center center / cover no-repeat;
     height: 100vh; 
     overflow: hidden;
+    padding: 0;
 }
 
 /* -----------------------------------*/
@@ -149,6 +150,51 @@ button:hover {
 }
 
 /* -----------------------------------*/
+/* Scores                             */
+/* -----------------------------------*/
+
+.highScores {
+    padding-top: 1px;
+    position: absolute;
+    margin: 0;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 300px;
+    background-color:rgba(0, 0, 0, 0.3);
+    border-left: solid 1px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+ol {
+    text-align: left;
+    list-style: none;
+}
+
+li {
+    text-align: left;
+    font-size: 20px;
+    color: #000;
+}
+
+h5 {
+    padding-top: 30px;
+    font-size: 24px;
+    text-align: center;
+}
+
+img {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    right: 85px;
+    bottom: 25px;
+    cursor: pointer;
+}
+/* -----------------------------------*/
 /* Animation                          */
 /* -----------------------------------*/
 
@@ -171,4 +217,15 @@ button:hover {
     .container { 
         height: 80%;
      }
+    body {padding-top: 1px;}
+    header {width: 60%;}
+     .highScores {
+        width: 200px;
+        z-index: 1;
+     }
+    img {
+        width: 75px;
+        height: 75px;
+        right: 55px;
+    }
 }
