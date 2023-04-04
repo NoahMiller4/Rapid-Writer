@@ -32,10 +32,12 @@ const message = document.querySelector('.message');
 const hideDisplay = document.querySelector('.hide');
 const descrip = document.querySelector('.descrip');
 const text = document.querySelector('.text');
-const box = document.querySelector('.box')
+const box = document.querySelector('.box');
+const highscores = document.querySelector('.highScores')
+const clear = document.querySelector('.clearScore')
 
 // add global variables, initialize playing
-let seconds =  15;
+let seconds =  20;
 let score = 0;
 let playing;
 
@@ -50,11 +52,12 @@ const hideButton = addBtn.addEventListener('click', () => {
     addBtn.style.display = "none"
 })
 
-const init = addBtn.addEventListener('click', initialize)
+const init = addBtn.addEventListener('click', initialize);
+
 
 // not onClick, keep seperate from initialize()
 setInterval (function () {
-    if(startSound.currentTime > 15){
+    if(startSound.currentTime > 20){
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
@@ -68,9 +71,13 @@ setInterval (function () {
         box.style.borderRadius = '0';
         saveScore(score);
         displayHighScores()
-        score = 0
+        score = 0;
+        highscores.style.display = "block";
     }
 },1000);
+
+const timing = setInterval(countdown, 1000);
+const game = setInterval(checkGame, 50);
 
 function initialize() {
     text.style.display = 'none';
@@ -88,10 +95,12 @@ function initialize() {
     input.focus()
     word(words);
     input.addEventListener('input', start);
-    setInterval(countdown, 1000);
-    setInterval(checkGame, 50);
-
+    seconds = 20;
+    timing;
+    game;
+    highscores.style.display = "none";
 }
+
 
 function start() {
     if(sameWord()) {
@@ -144,7 +153,7 @@ function checkGame() {
 /* High-Scores                        */
 /* -----------------------------------*/
 
-window.addEventListener("load", (event) => {
+window.addEventListener("load", () => {
     displayHighScores()
 });
 
@@ -154,7 +163,6 @@ function saveScore(score) {
     localStorage.setItem("highScores", JSON.stringify(highScores));
 };
 
-
 function displayHighScores() {
     let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     let highScoresList = document.querySelector(".scoreList");
@@ -163,7 +171,14 @@ function displayHighScores() {
     highScoresList.innerHTML = "";
     for (let i = 0; i < highScores.length; i++) {
       let li = document.createElement("li");
-      li.textContent = `#${i + 1}. ${highScores[i]} words`;
+      li.textContent = `#${i + 1}: ${highScores[i]} words ${percentage}%`;
       highScoresList.appendChild(li);
     }
 };
+
+let percentage = ((score / words.length) * 100).toFixed(1);
+
+clear.addEventListener('click', function() {
+    localStorage.clear();
+    window.location.reload()
+});
