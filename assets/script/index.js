@@ -72,6 +72,7 @@ setInterval (function () {
         saveScore(score);
         displayHighScores()
         score = 0;
+        display.innerHTML = "Try Again?"
         highscores.style.display = "block";
     }
 },1000);
