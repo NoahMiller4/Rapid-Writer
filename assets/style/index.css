@@ -228,7 +228,7 @@ img {
     100% {transform: translateY(0px) scaleY(1); opacity: 1;}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     h1 { font-size: 40px; }
     .container { 
         height: 80%;
@@ -239,6 +239,7 @@ img {
         width: 200px;
         z-index: 1;
      }
+     li {font-size: 14px;}
     img {
         width: 75px;
         height: 75px;
