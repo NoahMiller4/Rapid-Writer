@@ -174,7 +174,7 @@ ol {
 }
 
 li {
-    display: inline-block;
+    display: grid;
     padding-left: 30px;
     padding-top: 5px;
     text-align: left;

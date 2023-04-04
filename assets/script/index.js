@@ -58,7 +58,6 @@ setInterval (function () {
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
-        score = 0
         text.style.display = 'block';
         descrip.style.display = 'block';
         hideDisplay.style.display = 'none';
@@ -67,6 +66,9 @@ setInterval (function () {
         box.style.backgroundColor = 'rgb(0 0 0 / 0)';
         box.style.border = 'solid 1px rgb(0 0 0 / 0)';
         box.style.borderRadius = '0';
+        saveScore(score);
+        displayHighScores()
+        score = 0
     }
 },1000);
 
@@ -142,3 +144,26 @@ function checkGame() {
 /* High-Scores                        */
 /* -----------------------------------*/
 
+window.addEventListener("load", (event) => {
+    displayHighScores()
+});
+
+function saveScore(score) {
+    let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    highScores.push(score);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+};
+
+
+function displayHighScores() {
+    let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    let highScoresList = document.querySelector(".scoreList");
+    highScores.sort((a, b) => b - a);
+    highScores = highScores.slice(0, 9);
+    highScoresList.innerHTML = "";
+    for (let i = 0; i < highScores.length; i++) {
+      let li = document.createElement("li");
+      li.textContent = `#${i + 1}. ${highScores[i]} words`;
+      highScoresList.appendChild(li);
+    }
+};
