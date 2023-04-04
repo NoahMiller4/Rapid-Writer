@@ -37,7 +37,7 @@ const highscores = document.querySelector('.highScores')
 const clear = document.querySelector('.clearScore')
 
 // add global variables, initialize playing
-let seconds =  20;
+let seconds =  30;
 let score = 0;
 let playing;
 
@@ -57,7 +57,7 @@ const init = addBtn.addEventListener('click', initialize);
 
 // not onClick, keep seperate from initialize()
 setInterval (function () {
-    if(startSound.currentTime > 20){
+    if(startSound.currentTime > 30){
         startSound.pause();
         startSound.currentTime = 0
         addBtn.style.display = "inline-block";
@@ -95,7 +95,7 @@ function initialize() {
     input.focus()
     word(words);
     input.addEventListener('input', start);
-    seconds = 20;
+    seconds = 30;
     timing;
     game;
     highscores.style.display = "none";
@@ -153,6 +153,25 @@ function checkGame() {
 /* High-Scores                        */
 /* -----------------------------------*/
 
+
+function calculatePercentage(highScore, words) {
+    const numWords = words.length;
+    if (numWords === 0) {
+      return 0;
+    }
+    return ((highScore / numWords) * 100).toFixed(1);
+}
+
+// Retrieve the word array and high score from localStorage
+const wordArray = JSON.parse(localStorage.getItem('wordArray')) || [];
+const highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
+
+// Calculate the percentage
+const percentage = calculatePercentage(highScore, wordArray);
+
+// Store the percentage in localStorage
+localStorage.setItem('percentage', JSON.stringify(percentage));
+
 window.addEventListener("load", () => {
     displayHighScores()
 });
@@ -171,12 +190,10 @@ function displayHighScores() {
     highScoresList.innerHTML = "";
     for (let i = 0; i < highScores.length; i++) {
       let li = document.createElement("li");
-      li.textContent = `#${i + 1}: ${highScores[i]} words ${percentage}%`;
+      li.textContent = `#${i + 1}: ${highScores[i]} words ${calculatePercentage(highScores[i], words)}%`;
       highScoresList.appendChild(li);
     }
 };
-
-let percentage = ((score / words.length) * 100).toFixed(1);
 
 clear.addEventListener('click', function() {
     localStorage.clear();
